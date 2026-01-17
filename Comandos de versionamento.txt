@@ -1,0 +1,117 @@
+Para exemplificar o versionamento de um projeto Java, será criado um novo projeto no Apache NetBeans IDE (integrated development environment, em português ambiente de desenvolvimento integrado) e, dentro da pasta do projeto, será iniciado o versionamento. Para exemplo, o projeto será chamado de GitExemplo.
+
+
+Figura 1 – Criação do projeto GitExemplo no NetBeans
+Fonte: Apache NetBeans IDE (2023)
+
+
+Durante a criação do projeto, lembre-se de verificar o local onde o projeto será criado por meio do campo Project Location.
+
+Após criar o projeto, acesse esse diretório e abra o GitBash, clicando com o botão direito do mouse e selecionando a opção GitBash here.
+
+
+git init  :
+
+Iniciando o versionamento
+Um repositório Git rastreia e salva o histórico de todas as alterações feitas nos arquivos em um projeto. Ele salva esses dados em um diretório chamado .git, que é responsável por rastrear e salvar o histórico de todas as alterações feitas nos arquivos do diretório.
+
+Para iniciar o versionamento em um diretório, utiliza-se o seguinte comando:
+
+git init
+
+Após executá-lo, será criada a pasta .git.
+
+Nome e email:
+
+Se é a primeira vez que você está utilizando o GitBash no seu computador, então é necessário configurar o nome e o e-mail do seu usuário para que o versionamento reconheça quem é o responsável pelas alterações nos arquivos. Para isso, use dois comandos, um para configurar o nome e outro para configurar o e-mail.
+
+Para adicionar um nome de autor do usuário atual:
+
+git config --global user.name “Nome Sobrenome”
+
+Para adicionar um endereço de e-mail a todos os commits do usuário atual:
+
+git config --global user.email “exemplo@email.com”
+
+---
+Verificando o status: git status
+---
+
+Perceba que, atualmente, o versionamento identificou os arquivos build.xml e manifest.mf e os diretórios nbprojecte src com o status untracked, que significa “não rastreado”.
+
+Dentro de um repositório, os seus arquivos e as suas pastas podem ter dois status: untracked (do inglês, “não rastreado”) e tracked (do inglês, “rastreado”).
+
+O status untracked é o estado inicial de todo arquivo adicionado ou editado. Logo, sempre que você iniciar o versionamento em um repositório local, os arquivos serão reconhecidos com o estado de “não rastreado”.
+
+Sabe-se que o Git é uma ferramenta de rastreamento de versão. Essa ferramenta nunca começará a rastrear um arquivo até que você peça especificamente a ela para fazer isso. Se você fizer alguma alteração nos arquivos, o estado deles permanecerá “não rastreado” até usar o comando para rastrear.
+
+
+git add . & git commit
+
+Sempre que for feito uma alteração, é preciso dar um git add . antes do commit
+O ponto final indica todas as alterações. Assim, a versão será salva no repositório local.
+
+È importante sempre fazer uma documentação de cada atualização, falando o que foi alterado, para: Caso dê erro, fique mais fácil de reverter
+
+Se quiser adicionar uma pequena mensagem ao commit, é possível utilizar o seguinte modelo:
+
+git commit -m "Mensagem"
+
+o -m indica mensagem.
+
+Depois, pode-se usar o git status para ver a atualização
+
+
+
+##Criando repositório remoto:
+
+
+Repositórios remotos são versões do seu projeto que estão hospedadas na Internet ou em outra rede. Você pode ter vários deles e, também, ter várias pessoas trabalhando no mesmo repositório, o que torna possível a colaboração de vários programadores no desenvolvimento de um mesmo projeto de software.
+
+Até aqui, você já criou um repositório local, fez o versionamento do seu projeto e tem todas essas informações guardadas no computador. Agora, você criará um repositório remoto em que guardará todos os registros de versão do projeto, incluindo o código-fonte. Para isso, você utilizará o GitHub
+
+Assim que o repositório for criado, você será redirecionado para uma nova página. Perceba que o endereço dessa página tem a seguinte estrutura:
+
+https://github.com/Nome do usuário/Nome do repositório
+
+Esse é o endereço de acesso do seu repositório, onde “nome do usuário” será o nome do usuário que você definiu durante o processo de criação de conta no GitHub e “nome do repositório” será o nome que você definiu durante a criação do repositório remoto.
+
+
+Adicionando repositório remoto
+O comando git remote permite criar, visualizar e excluir conexões com outros repositórios. As conexões remotas são mais como favoritos do que links diretos para outros repositórios. Em vez de fornecer acesso em tempo real a outro repositório, eles servem de nomes convenientes que podem ser usados para referenciar uma URL (uniform resource locator) não tão conveniente.
+
+Na prática, é preciso dizer “para onde” serão enviados os arquivos do seu repositório. Então, seguindo o exemplo, seria necessário enviar para o endereço:
+
+https://github.com/lucasfrag/Git-Exemplo.git
+Porém, digitar esse endereço manualmente na linha de comando seria algo muito trabalhoso e tornaria a operação de envio para o repositório remoto mais complexa e cansativa. Portanto, com o comando git remote add <nome> <endereço do repositório remoto>, você vinculará um nome simples que servirá de “nome alternativo” para esse endereço.
+
+Seguindo o exemplo, o comando ficará:
+
+git remote add origin https://github.com/lucasfrag/Git-Exemplo.git
+
+Figura 14 – Terminal do GitBash
+Fonte: GitHub (2023)
+
+
+O comando que você deve executar no seu computador deve conter o nome do seu usuário do GitHub e o nome do seu repositório remoto.
+
+Nesse comando, “origin” é o nome alternativo definido. Por boas práticas, esse é um nome padrão utilizado para se referir ao repositório remoto principal. Então, sempre que você usar o termo “origin” nos comandos do Git, a ferramenta entenderá que está se referindo a esse endereço eletrônico que foi vinculado.
+
+Selecionando a ramificação principal
+Uma das funções mais importantes no controle de versões do Git são as ramificações, também conhecidas como branches.
+
+Imagine que você tem um projeto 100% funcional e surge a necessidade de modificar uma das funcionalidades desse projeto. Se fizer essa mudança diretamente, corre o risco de quebrar o que já está funcionando e causar outros problemas posteriores que podem comprometer todo o software. Porém, quando se cria uma ramificação do código principal, é possível fazer alterações sem modificar o que está funcionando. Então, pode-se pensar nas ramificações como áreas isoladas onde o código é duplicado e é possível modificar e testar o projeto sem afetar outras versões já funcionais.
+
+Futuramente, os conceitos e as práticas de ramificações serão mais aprofundados. Por ora, tudo o que você precisa é definir a ramificação principal com o comando git branch (para fazer essa definição, use o argumento -m). Então, execute o seguinte comando:
+
+git branch -m main
+
+Enviando para o repositório remoto
+Agora, você tem tudo pronto para, de fato, enviar tudo que está no repositório local para o repositório remoto. Para isso, use o comando git push. O termo push vem do inglês e significa “empurrar”. Essa é uma analogia para o ato de mover algo de um local para outro, sendo, então, os arquivos do repositório local para o repositório remoto.
+
+O processo de pushing fará o upload não apenas dos seus arquivos e pastas, mas também de todo o histórico de versionamento (no caso, os registros de commit). Para executar esse comando, é preciso dizer para qual local e branch “empurrará” os dados. Como você já executou os comandos git remote e git branch para definir o repositório remoto e a ramificação principal, basta apontar para esses locais respectivamente (para essa definição, usa-se o argumento -u). Logo, o comando terá a seguinte sintaxe:
+
+git push -u origin main
+
+
+Você recorda que já foi comentado para não se esquecer do segundo commit? Se você acessar os registros de commits e selecionar o segundo, encontrará o histórico de absolutamente tudo que foi alterado no projeto desde o primeiro commit.
